@@ -13,7 +13,7 @@
         <div class="container">
             <h1 class="text-center">Todo List</h1>
             <hr>
-            <p th:text="|Happy ${today}|">Today</p>
+            <h2 class="text-center" th:text="|Today is ${today}|">Today</h2>
             <table class="table table-bordered table-striped">
                 <thead>
                 <tr>
@@ -42,6 +42,7 @@
                 </tr>
                 </tbody>
             </table>
+            <p><a class="btn btn-success" href="/create-todo">Add a Todo Item</a></p>
         </div>
 
 

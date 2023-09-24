@@ -1,6 +1,7 @@
 package com.wlong.springboottododailies.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -18,6 +19,7 @@ public class TodoItem {
 
     @Getter
     @Setter
+    @NotEmpty(message = "Description cannot be empty.")
     private String description;
 
     @Getter

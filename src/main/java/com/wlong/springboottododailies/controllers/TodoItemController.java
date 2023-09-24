@@ -16,11 +16,13 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.time.Instant;
+import java.time.ZoneId;
 
 
 @Controller
 public class TodoItemController {
     private final Logger logger = LoggerFactory.getLogger(TodoItemController.class);
+    String weekDay;
 
     @Autowired
     TodoItemRepository todoItemRepository;
@@ -31,13 +33,30 @@ public class TodoItemController {
         ModelAndView modelAndView = new ModelAndView("index");
         // Get all items in repository, put it into a list keyed todoItems
         modelAndView.addObject("todoItems", todoItemRepository.findAll());
+        weekDay = String.valueOf(Instant.now().atZone(ZoneId.systemDefault()).toLocalDate().getDayOfWeek());
+        weekDay = weekDay.toLowerCase();
+        weekDay = weekDay.substring(0, 1).toUpperCase() + weekDay.substring(1);
+        modelAndView.addObject("today", weekDay);
         return modelAndView;
     }
 
-    @PostMapping("/todo/{id}")
+    @PostMapping("/create-todo")
+    public String createTodoItem(@Valid TodoItem todoItem, BindingResult result, Model model){
+        if (result.hasErrors()){
+            return "add-todo-item";
+        }
+
+        todoItem.setCreatedDate(Instant.now());
+        todoItem.setModifiedDate(Instant.now());
+        todoItem.setComplete(false);
+        todoItemRepository.save(todoItem);
+        return "redirect:/";
+    }
+
+    @PostMapping("/edit/{id}")
     public String updateTodoItem(@PathVariable("id") long id, @Valid TodoItem todoItem, BindingResult result, Model model){
         if (result.hasErrors()) {
-            todoItem.setId(id);
+            model.addAttribute("todo", todoItem); // Pass item into form
             return "update-todo-item"; // Return if error
         }
 
