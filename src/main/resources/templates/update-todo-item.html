@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/3.4.1/css/bootstrap.min.css} " />
+    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.6.2/css/bootstrap.min.css} " />
     <title>Home Page</title>
 </head>
 <body>
@@ -17,6 +17,14 @@
                     <label for="description">Description</label>
                     <input class="form-control" type="text" th:field="*{description}" id="description" placeholder="Add a description" required/>
                 </div>
+                <div class="dropdown">
+                    <select th:field="*{duration}" class="form-select" aria-label="Duration Select">
+                        <option th:value="1" th:text="Daily"></option>
+                        <option th:value="2" th:text="Weekly"></option>
+                        <option th:value="3" th:text="Monthly"></option>
+                        <option th:value="4" th:text="Yearly"></option>
+                    </select>
+                </div>
                 <div class="checkbox">
                     <label>
                         <input type="checkbox" th:checked="${complete} == true" th:field="*{complete}" id="complete" />
@@ -25,7 +33,6 @@
                 </div>
 
                 <button class="btn btn-default" type="submit">Update</button>
-                <input type="hidden" th:field="*{createdDate}">
                 <input type="hidden" th:field="*{modifiedDate}">
 
             </form>

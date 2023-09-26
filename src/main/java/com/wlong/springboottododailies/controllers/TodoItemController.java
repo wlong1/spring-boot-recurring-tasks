@@ -46,7 +46,7 @@ public class TodoItemController {
             return "add-todo-item";
         }
 
-        todoItem.setCreatedDate(Instant.now());
+        todoItem.setDuration(1);
         todoItem.setModifiedDate(Instant.now());
         todoItem.setComplete(false);
         todoItemRepository.save(todoItem);
@@ -63,6 +63,18 @@ public class TodoItemController {
         todoItem.setModifiedDate(Instant.now());
         todoItemRepository.save(todoItem);
         return "redirect:/"; //  Redirect view to index
+    }
+
+    @PostMapping("/toggle/{id}")
+    public String toggleComplete(@PathVariable("id") long id, Model model){
+        TodoItem todoItem = todoItemRepository
+                .findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("TodoItem id: " + id + " not found"));
+
+        todoItem.setComplete(!todoItem.getComplete());
+        todoItemRepository.save(todoItem);
+
+        return "redirect:/";
     }
 
 

@@ -6,43 +6,105 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/3.4.1/css/bootstrap.min.css} " />
-        <title>Home Page</title>
+        <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.6.2/css/bootstrap.min.css} " />
+        <title>Recurring Tasks</title>
+        <link href="style.css" rel="stylesheet"/>
     </head>
+
+    <!-- This code would be a lot less embarrassing if
+    I knew how to populate two separate tables with a single loop. -->
+
     <body>
         <div class="container">
-            <h1 class="text-center">Todo List</h1>
+            <h2 class="text-center extra-pad" th:text="|${today}'s To Do List|">Weekday</h2>
             <hr>
-            <h2 class="text-center" th:text="|Today is ${today}|">Today</h2>
+            <div class="flex-row">
+                <h4 style="align-self: flex-end;">To Do</h4>
+                <div class="limit">
+                    <a class="btn btn-primary" href="/">Refresh</a>
+                    <a class="btn btn-success" href="/create-todo">Add a Todo</a>
+                </div>
+            </div>
             <table class="table table-bordered table-striped">
                 <thead>
-                <tr>
-                    <th>Task</th>
-                    <th>Id</th>
+                <tr class="text-center">
+                    <th class="block-update">Update</th>
                     <th>Description</th>
-                    <th>Complete</th>
-                    <th>Created Date</th>
-                    <th>Modified Date</th>
+                    <th>Duration</th>
+                    <th>Last Updated</th>
+                    <th>Actions</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="item : ${todoItems}" th:class="${item.complete} ? success : warning">
-
+                <tr th:each="item : ${todoItems}" th:if="${!item.complete}">
                     <td>
-                        <div class="btn btn-group-sm" role="group">
+                        <div class="btn centered">
+                            <form th:action="@{/toggle/{id}(id=${item.id})}" method="post">
+                                <button class="btn btn-group-sm btn-secondary" type="submit">Done</button>
+                            </form>
+                        </div>
+                    </td>
+                    <td th:text="${item.description}">item_description</td>
+                    <td>
+                        <div th:switch="${item.duration}">
+                            <p th:case="1">Daily</p>
+                            <p th:case="2">Weekly</p>
+                            <p th:case="3">Monthly</p>
+                            <p th:case="4">Yearly</p>
+                            <p th:case="*">Unspecified</p>
+                        </div>
+                    </td>
+                    <td th:text="${item.modifiedDate}">item_modified_date</td>
+                    <td>
+                        <div class="btn btn-group-sm centered text-center" role="group">
+                            <a class="btn btn-outline-info" th:href="@{/edit/{id}(id=${item.id})}">Edit</a>
+                            <a class="btn btn-danger" th:href="@{/delete/{id}(id=${item.id})}">Delete</a>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+            <h4>Completed</h4>
+            <table class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                    <th class="block-update">Update</th>
+                    <th>Description</th>
+                    <th>Duration</th>
+                    <th>Last Updated</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="item : ${todoItems}" th:if="${item.complete}" class="table-success">
+                    <td>
+                        <div class="btn centered">
+                            <form th:action="@{/toggle/{id}(id=${item.id})}" method="post">
+                                <button class="btn btn-group-sm btn-success" type="submit">Undo</button>
+                            </form>
+                        </div>
+                    </td>
+                    <td th:text="${item.description}">item_description</td>
+                    <td>
+                        <div th:switch="${item.duration}">
+                            <p th:case="1">Daily</p>
+                            <p th:case="2">Weekly</p>
+                            <p th:case="3">Monthly</p>
+                            <p th:case="4">Yearly</p>
+                            <p th:case="*">Unspecified</p>
+                        </div>
+                    </td>
+                    <td th:text="${item.modifiedDate}">item_modified_date</td>
+                    <td>
+                        <div class="btn btn-group-sm centered" role="group">
                             <a class="btn btn-info" th:href="@{/edit/{id}(id=${item.id})}">Edit</a>
                             <a class="btn btn-danger" th:href="@{/delete/{id}(id=${item.id})}">Delete</a>
                         </div>
                     </td>
-                    <td th:text="${item.id}">item_id</td>
-                    <td th:text="${item.description}">item_description</td>
-                    <td th:text="${item.complete}">item_complete</td>
-                    <td th:text="${item.createdDate}">item_created_date</td>
-                    <td th:text="${item.modifiedDate}">item_modified_date</td>
                 </tr>
                 </tbody>
             </table>
-            <p><a class="btn btn-success" href="/create-todo">Add a Todo Item</a></p>
         </div>
 
 

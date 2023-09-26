@@ -28,11 +28,11 @@ public class TodoItem {
 
     @Getter
     @Setter
-    private Instant createdDate;
+    private Instant modifiedDate;
 
     @Getter
     @Setter
-    private Instant modifiedDate;
+    private Integer duration; // 1, 2, 3, 4 = Daily, Weekly, Monthly, Yearly respectively
 
     public TodoItem() {
     }
@@ -40,14 +40,14 @@ public class TodoItem {
     public TodoItem(String description) {
         this.description = description;
         this.complete = false;
-        this.createdDate = Instant.now();
+        this.duration = 1;
         this.modifiedDate = Instant.now();
     }
 
     @Override
     public String toString() {
-        return String.format("TodoItem{id='%d', description='%s', complete='%s', createdDate='%s', modifiedDate='%s'}",
-                id, description, complete, createdDate, modifiedDate);
+        return String.format("TodoItem{id='%d', description='%s', complete='%s', duration='%s', modifiedDate='%s'}",
+                id, description, complete, duration, modifiedDate);
     }
 
 }

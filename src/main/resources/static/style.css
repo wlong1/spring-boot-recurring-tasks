@@ -1,0 +1,41 @@
+.flex-row {
+    display: flex;
+    justify-content: space-between;
+    gap:30px;
+}
+
+.centered {
+    display: flex;
+    justify-content: center;
+    padding:0px;
+    gap:5px;
+}
+
+th {
+    text-align:center;
+}
+
+.limit {
+    height: 20%;
+    align-self: flex-end;
+    padding-bottom: 10px;
+}
+
+.char-lim {
+    display: inline-block;
+    word-wrap: break-word;
+    width: 400px;
+    white-space: normal;
+}
+
+hr {
+    margin: 10px auto 10px auto;
+}
+
+.block-update {
+    width: 100px;
+}
+
+.extra-pad {
+    padding-top: 10px;
+}
