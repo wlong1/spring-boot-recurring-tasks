@@ -11,29 +11,46 @@
 </head>
 <body>
     <div class="container">
-        <div class="col-md-6">
+        <h2 class="extra-pad" style="margin:14px 0px 0px 10px">Update a task</h2>
+        <hr>
+        <div class="col-md-12">
             <form action="#" th:action="@{/edit/{id}(id=${todo.id})}" th:object="${todo}" method="POST">
-                <div class="form-group">
-                    <label for="description">Description</label>
-                    <input class="form-control" type="text" th:field="*{description}" id="description" placeholder="Add a description" required/>
-                </div>
-                <div class="dropdown">
-                    <select th:field="*{duration}" class="form-select" aria-label="Duration Select">
-                        <option th:value="1" th:text="Daily"></option>
-                        <option th:value="2" th:text="Weekly"></option>
-                        <option th:value="3" th:text="Monthly"></option>
-                        <option th:value="4" th:text="Yearly"></option>
-                    </select>
-                </div>
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" th:checked="${complete} == true" th:field="*{complete}" id="complete" />
-                        Complete
-                    </label>
+                <div class="form-row">
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <label for="description">Description</label>
+                            <input class="form-control" type="text" th:field="*{description}" id="description" placeholder="Add a description" required/>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="form-check" style="margin:38px 0px 0px 4px">
+                            <label>
+                                <input type="checkbox" class="form-check-input" th:checked="${complete} == true" th:field="*{complete}" id="complete" />
+                                Complete
+                            </label>
+                        </div>
+                    </div>
                 </div>
 
-                <button class="btn btn-default" type="submit">Update</button>
-                <input type="hidden" th:field="*{modifiedDate}">
+                <div class="form-row" style="gap:14px; margin-left:2px">
+                    <div>
+                        <label for="date-field">Starting from: </label>
+                        <input type="date" th:field="${todo.modifiedDate}" id="date-field"/>
+                    </div>
+                    <div class="dropdown">
+                        <select th:field="*{duration}" class="form-select" aria-label="Duration Select">
+                            <option value=1 th:text="Daily"></option>
+                            <option value=2 th:text="Weekly"></option>
+                            <option value=3 th:text="Monthly"></option>
+                            <option value=4 th:text="Yearly"></option>
+                        </select>
+                    </div>
+                </div>
+
+                <p></p>
+                <button class="btn btn-info extra-pad" type="submit">Update</button>
+
 
             </form>
         </div>

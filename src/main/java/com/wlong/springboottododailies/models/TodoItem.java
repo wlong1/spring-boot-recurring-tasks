@@ -4,8 +4,12 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.Instant;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 @Entity
 @Table(name = "todo_item")
@@ -28,11 +32,12 @@ public class TodoItem {
 
     @Getter
     @Setter
-    private Instant modifiedDate;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Calendar modifiedDate;
 
     @Getter
     @Setter
-    private Integer duration; // 1, 2, 3, 4 = Daily, Weekly, Monthly, Yearly respectively
+    private String duration; // 1, 2, 3, 4 = Daily, Weekly, Monthly, Yearly respectively
 
     public TodoItem() {
     }
@@ -40,8 +45,14 @@ public class TodoItem {
     public TodoItem(String description) {
         this.description = description;
         this.complete = false;
-        this.duration = 1;
-        this.modifiedDate = Instant.now();
+        this.duration = "1";
+        Calendar temp = new GregorianCalendar();
+        temp.setTime(new Date());
+        temp.set(Calendar.HOUR_OF_DAY, 0);
+        temp.set(Calendar.MINUTE, 0);
+        temp.set(Calendar.SECOND, 0);
+        temp.set(Calendar.MILLISECOND, 0);
+        this.modifiedDate = temp;
     }
 
     @Override

@@ -12,13 +12,42 @@
 <body>
 <div class="container">
     <div class="col-md-6">
-        <h1>Add a new Todo Item</h1>
+        <h2 class="extra-pad" style="margin:14px 0px 0px 10px">Add a new task</h2>
+        <hr>
         <form action="#" th:action="@{/create-todo}" th:object="${todoItem}" method="POST">
-            <div class="form-group">
-                <label for="description">Description</label>
-                <input class="form-control" type="text" th:field="*{description}" id="description" placeholder="Add a description" required/>
+            <div class="form-row">
+                <div class="col-md-8">
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <input class="form-control" type="text" th:field="*{description}" id="description" placeholder="Add a description" required/>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-check" style="margin:38px 0px 0px 4px">
+                        <label>
+                            <input type="checkbox" class="form-check-input" th:checked="${complete} == true" th:field="*{complete}" id="complete" />
+                            Complete
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-row" style="gap:14px; margin-left:2px">
+                <div>
+                    <label for="date-field">Starting from: </label>
+                    <input type="date" th:field="*{modifiedDate}" id="date-field" required/>
+                </div>
+                <div class="dropdown">
+                    <select th:field="*{duration}" class="form-select" aria-label="Duration Select">
+                        <option value=1 th:text="Daily"></option>
+                        <option value=2 th:text="Weekly"></option>
+                        <option value=3 th:text="Monthly"></option>
+                        <option value=4 th:text="Yearly"></option>
+                    </select>
+                </div>
             </div>
 
+            <p></p>
             <button type="submit" class="btn btn-success">Add Todo</button>
         </form>
     </div>

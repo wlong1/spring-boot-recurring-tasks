@@ -28,9 +28,9 @@
             <table class="table table-bordered table-striped">
                 <thead>
                 <tr class="text-center">
-                    <th class="block-update">Update</th>
-                    <th>Description</th>
-                    <th>Duration</th>
+                    <th>Update</th>
+                    <th class="full-th">Description</th>
+                    <th>Interval</th>
                     <th>Last Updated</th>
                     <th>Actions</th>
                 </tr>
@@ -46,7 +46,7 @@
                     </td>
                     <td th:text="${item.description}">item_description</td>
                     <td>
-                        <div th:switch="${item.duration}">
+                        <div th:switch="${item.duration}" class="txt-mid">
                             <p th:case="1">Daily</p>
                             <p th:case="2">Weekly</p>
                             <p th:case="3">Monthly</p>
@@ -54,7 +54,7 @@
                             <p th:case="*">Unspecified</p>
                         </div>
                     </td>
-                    <td th:text="${item.modifiedDate}">item_modified_date</td>
+                    <td th:text="${#dates.format(item.modifiedDate, 'yyyy-MM-dd')}" style="text-align:center">item_modified_date</td>
                     <td>
                         <div class="btn btn-group-sm centered text-center" role="group">
                             <a class="btn btn-outline-info" th:href="@{/edit/{id}(id=${item.id})}">Edit</a>
@@ -70,8 +70,8 @@
                 <thead>
                 <tr>
                     <th class="block-update">Update</th>
-                    <th>Description</th>
-                    <th>Duration</th>
+                    <th class="full-th">Description</th>
+                    <th>Interval</th>
                     <th>Last Updated</th>
                     <th>Actions</th>
                 </tr>
@@ -87,7 +87,7 @@
                     </td>
                     <td th:text="${item.description}">item_description</td>
                     <td>
-                        <div th:switch="${item.duration}">
+                        <div th:switch="${item.duration}" class="txt-mid">
                             <p th:case="1">Daily</p>
                             <p th:case="2">Weekly</p>
                             <p th:case="3">Monthly</p>
@@ -95,7 +95,7 @@
                             <p th:case="*">Unspecified</p>
                         </div>
                     </td>
-                    <td th:text="${item.modifiedDate}">item_modified_date</td>
+                    <td th:text="${#dates.format(item.modifiedDate, 'yyyy-MM-dd')}" class="txt-mid">item_modified_date</td>
                     <td>
                         <div class="btn btn-group-sm centered" role="group">
                             <a class="btn btn-info" th:href="@{/edit/{id}(id=${item.id})}">Edit</a>

@@ -11,6 +11,10 @@
     gap:5px;
 }
 
+.txt-mid {
+    text-align:center;
+}
+
 th {
     text-align:center;
 }
@@ -32,8 +36,12 @@ hr {
     margin: 10px auto 10px auto;
 }
 
-.block-update {
+th {
     width: 100px;
+}
+
+.full-th {
+    width:100%;
 }
 
 .extra-pad {
